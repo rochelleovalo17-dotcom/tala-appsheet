@@ -3,14 +3,14 @@
 An AppSheet app for a campus publication. It keeps the staff, meetings, attendance, and activities in one place, replacing scattered notes and chat messages.
 
 CpE 118 midterm project, 1st Semester SY 2026-2027
-Author: Rochelle Ovalo | Section: [add your section]
+Author: Rochelle Ovalo | Section: BSCpE-2A
 
 *Tala* is Filipino for "star".
 
 ## Links
 
-- **AppSheet app:** [paste app link]
-- **Google Sheet (view access):** [paste sheet link]
+- **AppSheet app:** https://www.appsheet.com/Template/AppDef?appName=Tala-122959370&utm_source=share_app_link
+- **Google Sheet (view access):** https://docs.google.com/spreadsheets/d/143H2f5rD54zxncRYn-i_W-406FTtMjTL/edit?usp=sharing&ouid=112542240242693169847&rtpof=true&sd=true
 
 ## Who uses it
 
