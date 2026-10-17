@@ -1,0 +1,88 @@
+// Tala - Final ERD (paste into https://dbdiagram.io)
+
+Project Tala {
+  database_type: 'Google Sheets / AppSheet'
+  Note: 'Staff, meeting attendance, and activity tracking for a campus publication.'
+}
+
+Enum attendance_status {
+  Present
+  Late
+  Absent
+  Excused
+}
+
+Table Position {
+  PositionID int [pk, increment]
+  PositionName varchar [not null]
+  Description varchar
+  Note: 'One position can be held by many staff.'
+}
+
+Table Staff {
+  StaffID int [pk, increment]
+  FullName varchar [not null]
+  Course varchar
+  YearLevel int
+  Section varchar
+  PositionID int [not null]
+  Email varchar [unique, not null, note: 'Google account used to sign in']
+  CellPhoneNumber varchar
+  Note: 'Each staff member holds one position.'
+}
+
+Table Meeting {
+  MeetingID int [pk, increment]
+  MeetingTitle varchar [not null]
+  MeetingDate date [not null]
+  StartTime time
+  EndTime time
+  MeetingType varchar
+  Location varchar
+}
+
+Table "Publication Activity" {
+  ActivityID int [pk, increment]
+  ActivityName varchar [not null]
+  ActivityType varchar
+  ActivityDate date
+  Description varchar
+}
+
+Table "Activity Participation" {
+  ParticipationID int [pk, increment]
+  StaffID int [not null]
+  ActivityID int [not null]
+  TimeIn datetime
+  TimeOut datetime
+  HoursRendered decimal(4,2) [note: 'Hours between TimeIn and TimeOut']
+  Note: 'Junction table: resolves the many-to-many between Staff and Publication Activity.'
+}
+
+Table Attendance {
+  AttendanceID int [pk, increment]
+  StaffID int [not null]
+  MeetingID int [not null]
+  AttendanceStatus attendance_status [not null]
+  TimeIn datetime
+  TimeOut datetime
+  Note: 'Junction table: resolves the many-to-many between Staff and Meeting.'
+}
+
+// One-to-many: the ">" side is the "many" side
+Ref: Staff.PositionID > Position.PositionID
+Ref: Attendance.StaffID > Staff.StaffID
+Ref: Attendance.MeetingID > Meeting.MeetingID
+Ref: "Activity Participation".StaffID > Staff.StaffID
+Ref: "Activity Participation".ActivityID > "Publication Activity".ActivityID
+
+Note legend {
+  '''
+  **Legend**
+  - pk = primary key (hidden, auto-incremented in the app)
+  - Linked key columns = foreign keys
+  - Line end with one bar = "one"
+  - Line end with a crow's foot = "many"
+  - Attendance and Activity Participation are junction tables
+  '''
+}
